@@ -1,18 +1,16 @@
 plugins {
     id 'java'
 }
+
 group 'spring-data-jap-note'
 version '1.0'
 
 sourceCompatibility = 1.8
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    compile project(":common")
-
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
