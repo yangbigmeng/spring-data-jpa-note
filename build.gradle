@@ -1,0 +1,80 @@
+buildscript {
+
+    //build script中的声明是gradle脚本自身需要使用的资源
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE')
+        classpath("org.springframework:spring-core:4.3.2.RELEASE")
+        classpath('org.springframework.boot:spring-boot-loader-tools:1.4.0.RELEASE')
+        classpath("io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE")
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    group 'notepad'
+    version '1.0-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'war'
+    apply plugin: 'spring-boot'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // If you are building a web site for your business,
+        // you probably need to add some management services
+        compile("org.springframework.boot:spring-boot-starter-actuator:1.4.0.RELEASE")
+        testCompile("org.springframework.boot:spring-boot-starter-test:1.4.0.RELEASE")
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+    }
+}
+
+project(':web') {
+    war {
+        baseName = 'web'
+    }
+    bootRepackage {
+        mainClass = ""
+    }
+}
+
+project(':sal') {
+    jar {
+        baseName = 'sal'
+    }
+
+    bootRepackage {
+        enabled = false
+    }
+}
+
+project(':dal') {
+    jar {
+        baseName = 'dal'
+    }
+    bootRepackage {
+        enabled = false
+    }
+}
+
+project(':domain') {
+    jar {
+        baseName = 'domain'
+    }
+    bootRepackage {
+        enabled = false
+    }
+}
+
+
+
+
