@@ -4,6 +4,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 /**
  * Description: 属性定义
@@ -13,10 +14,10 @@ import javax.persistence.Entity;
  * @author Marvin Yang
  */
 @Entity
-public class Property {
+public class Property implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name")

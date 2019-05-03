@@ -1,9 +1,10 @@
 package note;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Description: 实体定义
@@ -12,15 +13,23 @@ import javax.persistence.Id;
  *
  * @author Marvin Yang
  */
-@javax.persistence.Entity
-public class Entity {
+@javax.persistence.Entity(name = "Entity")
+@Table(name = "entity")
+public class Entity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name")
     private String name;
+
+    /**
+     * 实体所属类别Id
+     *
+     */
+    @Column(name = "type_id")
+    private Integer typeId;
 
     public Integer getId() {
         return id;
@@ -37,4 +46,13 @@ public class Entity {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
 }

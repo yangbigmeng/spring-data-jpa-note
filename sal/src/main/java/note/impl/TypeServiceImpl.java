@@ -1,6 +1,5 @@
 package note.impl;
 
-import jdk.nashorn.internal.runtime.options.Option;
 import note.Type;
 import note.TypeRepository;
 import note.TypeService;
@@ -24,7 +23,7 @@ import java.util.Optional;
 @Service
 public class TypeServiceImpl implements TypeService {
     /**
-     * 存储一个实体类别
+     * 存储一个实体
      *
      * @param node 节点
      * @return Type

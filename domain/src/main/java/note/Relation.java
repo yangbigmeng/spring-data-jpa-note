@@ -2,6 +2,7 @@ package note;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 /**
  * Description: 关系定义
@@ -11,10 +12,10 @@ import javax.persistence.Entity;
  * @author Marvin Yang
  */
 @Entity
-public class Relation {
+public class Relation implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "from_entity_id")

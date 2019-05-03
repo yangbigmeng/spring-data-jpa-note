@@ -1,11 +1,11 @@
 package note;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Description: 实体类型定义
@@ -14,24 +14,31 @@ import javax.persistence.Entity;
  *
  * @author Marvin Yang
  */
-@Entity
-public class Type {
+@Entity(name = "Type")
+@Table(name = "type")
+public class Type implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /** 实体类型名称 */
     @Column(name = "name")
     private String name;
 
-    @Column(name = "parent")
     @JsonIgnore
+    @Column(name = "parent")
     private Integer parent = -1;
 
-    @Transient
-    @JsonProperty("parent")
-    private Type parentNode;
+    /**
+     * (1) Entity表字段中定义了type_id
+     * (2) 多个entity对应一个type
+     * (3) JoinColumn在OneToMany下, name对应的字段是目标表的字段
+     *
+     */
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "type_id")
+    private Set<note.Entity> entities;
 
     public Integer getId() {
         return id;
@@ -57,12 +64,12 @@ public class Type {
         return parent;
     }
 
-    public void setParentNode(Type parentNode) {
-        this.parentNode = parentNode;
+    public Set<note.Entity> getEntities() {
+        return entities;
     }
 
-    @OneToOne(targetEntity = Type.class, fetch = FetchType.LAZY, mappedBy = "parent")
-    public Type getParentNode() {
-        return parentNode;
+    public void setEntities(Set<note.Entity> entities) {
+        this.entities = entities;
     }
+
 }
