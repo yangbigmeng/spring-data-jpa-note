@@ -56,6 +56,18 @@ public class TypeController {
         return JsonUtils.serialize(ResponseBuilder.buildSuccess(instances));
     }
 
+    /**
+     * 根据Id删除一条记录
+     *
+     * @param id    类别Id
+     * @return 删除OK
+     */
+    @RequestMapping("/deleteOne")
+    public String deleteOne(Integer id) {
+        typeService.deleteOne(id);
+        return JsonUtils.serialize(ResponseBuilder.buildSuccess(null));
+    }
+
     @Autowired
     private TypeService typeService;
 }

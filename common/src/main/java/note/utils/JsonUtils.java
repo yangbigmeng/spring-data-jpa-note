@@ -1,5 +1,7 @@
 package note.utils;
 
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +43,7 @@ public class JsonUtils implements Serializable {
      */
     public static Map deserialize(String jsonStr) {
         try {
-            return new ObjectMapper().readValue(jsonStr, Map.class);
+            return deserialize(jsonStr, Map.class);
         } catch (Exception e) {
             LOG.warn(e.getMessage());
             return new HashMap();
@@ -50,6 +52,9 @@ public class JsonUtils implements Serializable {
 
     /**
      * 根据指定类型反序列化对象
+     * <p>
+     *     1. 对于缺失的属性值不处理
+     * </p>
      *
      * @param jsonStr       字符串
      * @param classType     反序列化类型
@@ -58,7 +63,9 @@ public class JsonUtils implements Serializable {
      * @throws IOException  反序列化异常
      */
     public static <T> T deserialize(String jsonStr, Class<T> classType) throws IOException {
-        return new ObjectMapper().readValue(jsonStr, classType);
+        return new ObjectMapper().
+                configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).
+                readValue(jsonStr, classType);
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(JsonUtils.class);

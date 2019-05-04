@@ -79,6 +79,16 @@ public class TypeServiceImpl implements TypeService {
         return typeRepository.findAll(Example.of(node));
     }
 
+    /**
+     * 根据Id删除实体类别
+     *
+     * @param id id
+     */
+    @Override
+    public void deleteOne(Integer id) {
+        typeRepository.deleteById(id);
+    }
+
     @Autowired
     private TypeRepository typeRepository;
 

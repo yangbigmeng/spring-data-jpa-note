@@ -44,4 +44,11 @@ public interface TypeService {
      * @return list of type
      */
     List<Type> find(Type node);
+
+    /**
+     * 根据Id删除实体类别
+     *
+     * @param id    id
+     */
+    void deleteOne(Integer id);
 }
