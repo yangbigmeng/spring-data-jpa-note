@@ -1,8 +1,8 @@
 package note.utils;
 
-import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +28,8 @@ public class JsonUtils implements Serializable {
      */
     public static String serialize(Object object) {
         try {
-            return new ObjectMapper().writeValueAsString(object);
+            return new ObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+                    .writeValueAsString(object);
         } catch (Exception e) {
             LOG.warn(e.getMessage());
             return "";

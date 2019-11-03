@@ -59,13 +59,12 @@ public class TypeServiceImpl implements TypeService {
     /**
      * 查询一条记录
      *
-     * @param node 查询条件
+     * @param id 类型id
      * @return a Type
      */
     @Override
-    public Type findOne(Type node) {
-        Optional<Type> res = typeRepository.findOne(Example.of(node));
-        return res.orElse(null);
+    public Type findOne(Long id) {
+        return typeRepository.getOne(id);
     }
 
     /**
@@ -85,7 +84,7 @@ public class TypeServiceImpl implements TypeService {
      * @param id id
      */
     @Override
-    public void deleteOne(Integer id) {
+    public void deleteOne(Long id) {
         typeRepository.deleteById(id);
     }
 

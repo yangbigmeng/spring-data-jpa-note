@@ -18,7 +18,7 @@ public class TypeTest {
     public void serialize() throws Exception {
         Type type = new Type();
         type.setName("thing");
-        type.setId(1);
+        type.setId(1L);
         type.setParent(-1);
 
         String typeStr = JsonUtils.serialize(type);

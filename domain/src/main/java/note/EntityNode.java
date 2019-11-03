@@ -10,29 +10,34 @@ import java.io.Serializable;
  *
  * @author Marvin Yang
  */
-@javax.persistence.Entity(name = "Entity")
+@Entity(name = "EntityNode")
 @Table(name = "entity")
-public class Entity implements Serializable {
+public class EntityNode implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
 
     /**
      * 实体所属类别Id
-     *
      */
     @Column(name = "type_id")
-    private Integer typeId;
+    private Long typeId;
 
-    public Integer getId() {
+    /**
+     * 实体所属Type
+     */
+    @Transient
+    private Type type;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,12 +49,21 @@ public class Entity implements Serializable {
         this.name = name;
     }
 
-    public Integer getTypeId() {
+    public Long getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Integer typeId) {
+    public void setTypeId(Long typeId) {
         this.typeId = typeId;
     }
 
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+//    @ManyToOne(targetEntity = Type.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "type_id", referencedColumnName = "id")
+    public Type getType() {
+        return type;
+    }
 }

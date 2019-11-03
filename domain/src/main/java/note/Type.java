@@ -1,12 +1,9 @@
 package note;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * Description: 实体类型定义
@@ -20,36 +17,34 @@ import java.util.Set;
  */
 @Entity(name = "Type")
 @Table(name = "type")
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class Type implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     /** 实体类型名称 */
     @Column(name = "name")
     private String name;
 
-    @JsonIgnore
     @Column(name = "parent")
-    private Integer parent = -1;
+    private Long parent = -1L;
 
     /**
      * (1) Entity表字段中定义了type_id
      * (2) 多个entity对应一个type
      * (3) JoinColumn在OneToMany下, name对应的字段是目标表的字段
-     *
+     * (4) 不入库
      */
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "type_id")
-//    private Set<note.Entity> entities;
+//    @Transient
+//    private Set<EntityNode> entities;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,19 +56,21 @@ public class Type implements Serializable {
         this.name = name;
     }
 
-    public void setParent(Integer parent) {
+    public void setParent(Long parent) {
         this.parent = parent;
     }
 
-    public Integer getParent() {
+    public Long getParent() {
         return parent;
     }
 
-//    public Set<note.Entity> getEntities() {
+//    @OneToMany(targetEntity = EntityNode.class, mappedBy = "typeId")
+//    @JoinColumn(name="type_id")
+//    public Set<EntityNode> getEntities() {
 //        return entities;
 //    }
 //
-//    public void setEntities(Set<note.Entity> entities) {
+//    public void setEntities(Set<EntityNode> entities) {
 //        this.entities = entities;
 //    }
 

@@ -1,9 +1,6 @@
 package note;
 
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**

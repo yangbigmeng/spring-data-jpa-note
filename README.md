@@ -6,5 +6,5 @@
 ## 依赖
 
 - mysql  5.7.26
-- gradle 5.4.1
+- gradle 4.8
 - spring-boot-gradle-plugin  2.1.1.RELEASE

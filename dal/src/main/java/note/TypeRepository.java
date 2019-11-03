@@ -1,7 +1,6 @@
 package note;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * @author Marvin Yang
  */
 @Repository
-public interface TypeRepository extends JpaRepository<Type, Integer> {
+public interface TypeRepository extends JpaRepository<Type, Long> {
 
     /**
      * 根据实体类别名称查找对象

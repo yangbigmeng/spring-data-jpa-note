@@ -19,21 +19,29 @@ public interface EntityService {
      * @param node  节点
      * @return Type
      */
-    Entity saveOne(Entity node);
+    EntityNode saveOne(EntityNode node);
 
     /**
      * 更新一个对象
      *
      * @param node  更新类别
-     * @return  a Entity
+     * @return  a EntityNode
      */
-    Entity updateOne(Entity node) throws InvalidIdException;
+    EntityNode updateOne(EntityNode node) throws InvalidIdException;
 
     /**
      * 查询记录
      *
      * @param node  查询条件
-     * @return list of Entity
+     * @return list of EntityNode
      */
-    List<Entity> find(Entity node);
+    List<EntityNode> find(EntityNode node);
+
+    /**
+     * 根据id获取实体
+     *
+     * @param id    实体id
+     * @return  a EntityNode
+     */
+    EntityNode findOne(long id);
 }

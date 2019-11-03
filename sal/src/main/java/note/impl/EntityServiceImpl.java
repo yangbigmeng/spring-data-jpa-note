@@ -1,8 +1,6 @@
 package note.impl;
 
-import note.Entity;
-import note.EntityRepository;
-import note.EntityService;
+import note.*;
 import note.exceptions.InvalidIdException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +24,9 @@ public class EntityServiceImpl implements EntityService {
     @Autowired
     private EntityRepository entityRepository;
 
+    @Autowired
+    private TypeRepository typeRepository;
+
     private final static Logger LOG = LoggerFactory.getLogger(EntityServiceImpl.class);
 
     /**
@@ -35,8 +36,8 @@ public class EntityServiceImpl implements EntityService {
      * @return Type
      */
     @Override
-    public Entity saveOne(Entity node) {
-        Entity org = entityRepository.findByName(node.getName());
+    public EntityNode saveOne(EntityNode node) {
+        EntityNode org = entityRepository.findByName(node.getName());
         if (org != null) {
             return org;
         } else {
@@ -48,13 +49,13 @@ public class EntityServiceImpl implements EntityService {
      * 更新一个对象
      *
      * @param node 更新类别
-     * @return a Entity
+     * @return a EntityNode
      */
     @Override
-    public Entity updateOne(Entity node) throws InvalidIdException {
-        Optional<Entity> res = entityRepository.findById(node.getId());
+    public EntityNode updateOne(EntityNode node) throws InvalidIdException {
+        Optional<EntityNode> res = entityRepository.findById(node.getId());
         if (res.isPresent()) {
-            Entity org = res.get();
+            EntityNode org = res.get();
             org.setName(node.getName());
             return entityRepository.save(org);
         } else {
@@ -66,10 +67,26 @@ public class EntityServiceImpl implements EntityService {
      * 查询记录
      *
      * @param node 查询条件
-     * @return list of Entity
+     * @return list of EntityNode
      */
     @Override
-    public List<Entity> find(Entity node) {
+    public List<EntityNode> find(EntityNode node) {
         return entityRepository.findAll(Example.of(node));
+    }
+
+    /**
+     * 根据id获取实体
+     *
+     * @param id 实体id
+     * @return a EntityNode
+     */
+    @Override
+    public EntityNode findOne(long id) {
+        EntityNode entityNode = entityRepository.getOne(id);
+        if (entityNode != null) {
+            Type type = typeRepository.getOne(entityNode.getTypeId());
+            entityNode.setType(type);
+        }
+        return entityNode;
     }
 }

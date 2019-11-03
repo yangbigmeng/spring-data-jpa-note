@@ -32,10 +32,10 @@ public interface TypeService {
     /**
      * 查询一条记录
      *
-     * @param node  查询条件
+     * @param id  类型id
      * @return  a Type
      */
-    Type findOne(Type node);
+    Type findOne(Long id);
 
     /**
      * 查询记录
@@ -50,5 +50,5 @@ public interface TypeService {
      *
      * @param id    id
      */
-    void deleteOne(Integer id);
+    void deleteOne(Long id);
 }
